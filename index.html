@@ -3,43 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>⛏ Ben's Lunchbox Gallery ⛏</title>
-  <meta name="description" content="A pixel-art gallery of the lunchboxes we pack for Ben." />
+  <title>Ben's Lunchbox — Daily Drops</title>
+  <meta name="description" content="A feed of the lunchboxes we pack for Ben. Fuel up." />
 
-  <!-- Pixel display font for headings; ingredient text uses a clean sans (see style.css) -->
+  <!-- Anton = heavy poster/punk display; Inter = clean readable body -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="site-header">
-    <h1 class="site-title">⛏ BEN'S LUNCHBOX ⛏</h1>
-    <p class="site-subtitle">Daily loot drops &middot; packed with love &amp; +crunch</p>
-    <!-- thin grass-block strip -->
-    <div class="grass-strip" aria-hidden="true">
-      <div class="grass-strip__top"></div>
-      <div class="grass-strip__dirt"></div>
+    <div class="site-header__inner">
+      <p class="site-kicker">★ Packed fresh &middot; eaten loud ★</p>
+      <h1 class="site-title">BEN'S<span class="site-title__amp"> </span>LUNCHBOX</h1>
+      <p class="site-subtitle">Daily drops from the kitchen. Real food, real fuel.</p>
+    </div>
+    <!-- neon gig-poster marquee strip -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>FUEL UP&nbsp;&nbsp;✦&nbsp;&nbsp;NO SOGGY SANDWICHES&nbsp;&nbsp;✦&nbsp;&nbsp;EAT LOUD&nbsp;&nbsp;✦&nbsp;&nbsp;DAILY DROPS&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+        <span>FUEL UP&nbsp;&nbsp;✦&nbsp;&nbsp;NO SOGGY SANDWICHES&nbsp;&nbsp;✦&nbsp;&nbsp;EAT LOUD&nbsp;&nbsp;✦&nbsp;&nbsp;DAILY DROPS&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+      </div>
     </div>
   </header>
 
   <main>
-    <section id="gallery" class="gallery" aria-label="Lunchbox gallery">
-      <!-- Cards are injected here by app.js -->
-      <p class="gallery__status" id="status">Loading boxes&hellip;</p>
+    <section id="gallery" class="feed" aria-label="Lunchbox feed">
+      <p class="feed__status" id="status">Loading the feed&hellip;</p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Crafted block by block for Ben. Eat well, mine on. ⛏</p>
+    <p>Made with love &amp; loud music for Ben. <span class="heart">♥</span></p>
   </footer>
 
-  <!-- Lightbox / modal for the enlarged view -->
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" hidden>
     <div class="lightbox__backdrop" data-close></div>
     <div class="lightbox__panel" role="document">
-      <button class="lightbox__close" type="button" data-close aria-label="Close">&times;</button>
+      <button class="lightbox__close" type="button" data-close aria-label="Close">✕</button>
       <img class="lightbox__img" id="lightbox-img" src="" alt="" />
       <div class="lightbox__info">
         <h2 class="lightbox__title" id="lightbox-title"></h2>

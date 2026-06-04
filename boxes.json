@@ -1,7 +1,7 @@
 [
   {
     "id": "2026-06-04",
-    "image": "images/2026-06-04.svg",
+    "image": "images/2026-06-04.jpeg",
     "title": "Falafel Pita Power-Up",
     "date": "2026-06-04",
     "ingredients": [
@@ -12,6 +12,21 @@
       "Cherry tomatoes",
       "Cucumber"
     ],
-    "note": "Cucumber for moral support. +10 Crunch."
+    "note": "Tahini drizzle = critical hit. Cucumber rides shotgun."
+  },
+  {
+    "id": "2026-06-03",
+    "image": "images/2026-06-03.jpeg",
+    "title": "Double Wrap Combo",
+    "date": "2026-06-03",
+    "ingredients": [
+      "Egg & veggie wrap",
+      "Cucumber-tomato wrap",
+      "Pecans",
+      "Blueberries",
+      "Baby carrots",
+      "Cherry tomatoes"
+    ],
+    "note": "Two wraps, one fork, zero mercy. Pecans for the encore."
   }
 ]

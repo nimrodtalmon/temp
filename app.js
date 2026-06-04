@@ -1,7 +1,7 @@
 /* ===========================================================
-   Ben's Lunchbox Gallery — vanilla JS, no build step.
-   Renders cards from boxes.json (newest first) and wires
-   up a simple lightbox. Add a box = edit boxes.json only.
+   Ben's Lunchbox — vanilla JS, no build step.
+   Renders a feed of "posts" from boxes.json (newest first)
+   and wires up a lightbox. Add a box = edit boxes.json only.
    =========================================================== */
 
 (function () {
@@ -19,10 +19,11 @@
   var EMOJI_MAP = [
     ["falafel", "🧆"],
     ["pita", "🫓"],
-    ["bread", "🍞"],
-    ["bagel", "🥯"],
     ["wrap", "🌯"],
+    ["burrito", "🌯"],
     ["tortilla", "🌮"],
+    ["bagel", "🥯"],
+    ["bread", "🍞"],
     ["rice", "🍚"],
     ["noodle", "🍜"],
     ["pasta", "🍝"],
@@ -45,6 +46,7 @@
     ["banana", "🍌"],
     ["grape", "🍇"],
     ["strawberr", "🍓"],
+    ["blueberr", "🫐"],
     ["berry", "🫐"],
     ["orange", "🍊"],
     ["melon", "🍉"],
@@ -52,6 +54,7 @@
     ["choc", "🍫"],
     ["cake", "🍰"],
     ["pretzel", "🥨"],
+    ["pecan", "🥜"],
     ["nut", "🥜"],
     ["pizza", "🍕"]
   ];
@@ -72,7 +75,7 @@
     return node;
   }
 
-  function ingredientList(ingredients, className) {
+  function tagList(ingredients, className) {
     var ul = el("ul", className);
     (ingredients || []).forEach(function (ing) {
       ul.appendChild(el("li", null, ing));
@@ -120,35 +123,36 @@
     if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
   });
 
-  /* --- Card ---------------------------------------------------------------- */
-  function buildCard(box) {
-    var card = el("button", "card");
-    card.type = "button";
-    card.setAttribute("aria-label", "Open " + (box.title || "lunchbox"));
+  /* --- Post card ----------------------------------------------------------- */
+  function buildPost(box) {
+    var post = el("article", "post");
 
-    var frame = el("div", "card__frame");
+    var media = el("button", "post__media");
+    media.type = "button";
+    media.setAttribute("aria-label", "Open " + (box.title || "lunchbox"));
 
-    var img = el("img", "card__img");
+    var img = el("img", "post__img");
     img.src = box.image || FALLBACK_IMG;
     img.alt = box.title || "Lunchbox photo";
     img.loading = "lazy";
     img.onerror = function () { this.onerror = null; this.src = FALLBACK_IMG; };
-    frame.appendChild(img);
+    media.appendChild(img);
 
-    var icon = el("div", "card__icon", emojiFor((box.ingredients || [])[0]));
-    icon.setAttribute("aria-hidden", "true");
-    frame.appendChild(icon);
+    var sticker = el("span", "post__sticker", emojiFor((box.ingredients || [])[0]));
+    sticker.setAttribute("aria-hidden", "true");
+    media.appendChild(sticker);
 
-    card.appendChild(frame);
+    media.appendChild(el("span", "post__flash", "LOADED"));
+    media.addEventListener("click", function () { openLightbox(box); });
+    post.appendChild(media);
 
-    var body = el("div", "card__body");
-    body.appendChild(el("h2", "card__title", box.title || "Lunchbox"));
-    body.appendChild(ingredientList(box.ingredients, "card__ingredients"));
-    if (box.note) body.appendChild(el("p", "card__note", box.note));
-    card.appendChild(body);
+    var body = el("div", "post__body");
+    body.appendChild(el("h2", "post__title", box.title || "Lunchbox"));
+    body.appendChild(tagList(box.ingredients, "post__tags"));
+    if (box.note) body.appendChild(el("p", "post__note", box.note));
+    post.appendChild(body);
 
-    card.addEventListener("click", function () { openLightbox(box); });
-    return card;
+    return post;
   }
 
   /* --- Sort newest first --------------------------------------------------- */
@@ -167,16 +171,16 @@
     .then(function (boxes) {
       if (statusEl) statusEl.remove();
       if (!Array.isArray(boxes) || boxes.length === 0) {
-        gallery.appendChild(el("p", "gallery__status", "No boxes yet — add one to boxes.json!"));
+        gallery.appendChild(el("p", "feed__status", "No boxes yet — add one to boxes.json!"));
         return;
       }
       boxes.slice().sort(byNewest).forEach(function (box) {
-        gallery.appendChild(buildCard(box));
+        gallery.appendChild(buildPost(box));
       });
     })
     .catch(function (err) {
       if (statusEl) {
-        statusEl.className = "gallery__status gallery__status--error";
+        statusEl.className = "feed__status feed__status--error";
         statusEl.textContent = "Couldn't load boxes.json (" + err.message + "). If you opened this file directly, serve it over http (see README).";
       }
     });

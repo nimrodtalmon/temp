@@ -1,0 +1,308 @@
+/* ===========================================================
+   Ben's Lunchbox Gallery — pixel / Minecraft styling
+   Dark "game UI" base. Pixel font for headings,
+   clean sans for body so ingredient text stays legible.
+   =========================================================== */
+
+:root {
+  /* Minecraft-y palette */
+  --grass:   #5d9c3c;
+  --grass-d: #3f6e29;
+  --dirt:    #7a5230;
+  --dirt-d:  #573a21;
+  --sky:     #7ec0ee;
+  --gold:    #f9d71c;
+
+  /* dark game-UI base */
+  --bg:        #1b1d22;
+  --bg-grid:   #24262d;
+  --panel:     #2b2f38;
+  --panel-d:   #1f232a;
+  --slot:      #30343d;
+  --ink:       #f3f1e7;
+  --ink-soft:  #b9c0c9;
+  --shadow:    #0c0d10;
+
+  --border-w: 4px;
+  --pop: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  background-color: var(--bg);
+  /* faint pixel-grid texture, kept subtle for readability */
+  background-image:
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px;
+  image-rendering: pixelated;
+}
+
+img { image-rendering: pixelated; }
+
+/* ----------------------------- Header ----------------------------- */
+.site-header {
+  text-align: center;
+  padding: 2.2rem 1rem 0;
+}
+
+.site-title {
+  font-family: "Press Start 2P", monospace;
+  color: var(--gold);
+  font-size: clamp(1.1rem, 4.5vw, 2.4rem);
+  line-height: 1.4;
+  margin: 0 0 0.8rem;
+  /* hard pixel drop-shadow, no blur */
+  text-shadow: 3px 3px 0 var(--shadow), 6px 6px 0 var(--dirt-d);
+  letter-spacing: 1px;
+}
+
+.site-subtitle {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.4rem;
+}
+
+/* grass-block strip under the header */
+.grass-strip {
+  max-width: 760px;
+  margin: 0 auto;
+  border: var(--border-w) solid var(--shadow);
+}
+.grass-strip__top  { height: 14px; background: var(--grass); border-bottom: 3px solid var(--grass-d); }
+.grass-strip__dirt {
+  height: 22px;
+  background: var(--dirt);
+  background-image:
+    radial-gradient(var(--dirt-d) 2px, transparent 2px),
+    radial-gradient(var(--dirt-d) 2px, transparent 2px);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 8px;
+}
+
+/* ----------------------------- Gallery ----------------------------- */
+.gallery {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr;            /* mobile-first: single column */
+  gap: 1.4rem;
+}
+
+@media (min-width: 600px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .gallery { grid-template-columns: repeat(3, 1fr); }
+}
+
+.gallery__status {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--ink-soft);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.8rem;
+  padding: 2rem 0;
+}
+.gallery__status--error { color: #ff8d6b; }
+
+/* ----------------------------- Card (inventory slot) ----------------------------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: var(--border-w) solid var(--shadow);
+  /* hard, blocky drop-shadow — no soft blur */
+  box-shadow: 6px 6px 0 var(--shadow);
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  transition: transform 0.06s steps(2), box-shadow 0.06s steps(2);
+}
+
+/* snappy pixel "pop" on hover / focus / tap */
+.card:hover,
+.card:focus-visible {
+  transform: translate(-2px, -4px);
+  box-shadow: 9px 11px 0 var(--shadow);
+  outline: none;
+}
+.card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+.card:focus-visible { border-color: var(--gold); }
+
+.card__frame {
+  position: relative;
+  background: var(--slot);
+  border-bottom: var(--border-w) solid var(--shadow);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* auto emoji badge (top-left inventory tag) */
+.card__icon {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 6px;
+  background: var(--panel-d);
+  border: 3px solid var(--shadow);
+  /* keep emoji crisp, not pixelated */
+  image-rendering: auto;
+}
+
+.card__body { padding: 0.9rem 1rem 1.1rem; }
+
+.card__title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--gold);
+  margin: 0 0 0.7rem;
+}
+
+.card__ingredients {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card__ingredients li {
+  font-size: 0.82rem;
+  color: var(--ink);
+  background: var(--slot);
+  border: 2px solid var(--shadow);
+  padding: 3px 8px;
+}
+
+.card__note {
+  margin: 0.8rem 0 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--sky);
+}
+
+/* ----------------------------- Lightbox ----------------------------- */
+.lightbox[hidden] { display: none; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 7, 9, 0.85);
+}
+
+.lightbox__panel {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  width: 100%;
+  max-height: 92vh;
+  overflow: auto;
+  background: var(--panel);
+  border: var(--border-w) solid var(--shadow);
+  box-shadow: 10px 10px 0 var(--shadow);
+}
+
+.lightbox__img {
+  width: 100%;
+  display: block;
+  border-bottom: var(--border-w) solid var(--shadow);
+  background: var(--slot);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--dirt);
+  border: 3px solid var(--shadow);
+  cursor: pointer;
+  line-height: 1;
+}
+.lightbox__close:hover { background: var(--grass); }
+
+.lightbox__info { padding: 1.1rem 1.2rem 1.4rem; }
+
+.lightbox__title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--gold);
+  margin: 0 0 0.9rem;
+}
+
+.lightbox__ingredients {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.lightbox__ingredients li {
+  font-size: 0.92rem;
+  background: var(--slot);
+  border: 2px solid var(--shadow);
+  padding: 4px 9px;
+}
+
+.lightbox__note {
+  margin: 1rem 0 0;
+  font-style: italic;
+  color: var(--sky);
+}
+.lightbox__note:empty { display: none; }
+
+/* ----------------------------- Footer ----------------------------- */
+.site-footer {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  padding: 2rem 1rem 3rem;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+}

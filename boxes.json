@@ -1,5 +1,19 @@
 [
   {
+    "id": "2026-06-09",
+    "image": "images/2026-06-09.jpeg",
+    "title": "Cluck & Load",
+    "date": "2026-06-09",
+    "ingredients": [
+      "Chicken sandwich",
+      "Whole-grain bread",
+      "Blueberries",
+      "Cucumber",
+      "Red pepper"
+    ],
+    "note": "Chicken sammie that hits different. Blueberries = extra lives."
+  },
+  {
     "id": "2026-06-04",
     "image": "images/2026-06-04.jpeg",
     "title": "Falafel Pita Power-Up",

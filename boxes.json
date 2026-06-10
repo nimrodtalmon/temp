@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-06-10",
+    "image": "images/2026-06-10.jpeg",
+    "title": "Shawarma Showdown",
+    "date": "2026-06-10",
+    "ingredients": [
+      "Spiced chicken",
+      "Pita bread",
+      "Red pepper",
+      "Green grapes",
+      "Blueberries",
+      "Cucumber"
+    ],
+    "note": "Spiced chicken pita with a grape-and-cucumber side quest."
+  },
+  {
     "id": "2026-06-09",
     "image": "images/2026-06-09.jpeg",
     "title": "Cluck & Load",

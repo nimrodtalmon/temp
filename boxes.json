@@ -1,5 +1,19 @@
 [
   {
+    "id": "2026-06-11",
+    "image": "images/2026-06-11.jpeg",
+    "title": "Roll Out",
+    "date": "2026-06-11",
+    "ingredients": [
+      "Egg & veggie wrap",
+      "Tomato",
+      "Orange pepper",
+      "Blueberries",
+      "Plum"
+    ],
+    "note": "Two rolls deep. Plum + blueberries = sweet bonus round."
+  },
+  {
     "id": "2026-06-10",
     "image": "images/2026-06-10.jpeg",
     "title": "Shawarma Showdown",
